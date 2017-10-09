@@ -1,4 +1,4 @@
-## vue-swiper
+## vue-slide-nav
 
 ### QuickStart
 ```javascript

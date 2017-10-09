@@ -1,6 +1,6 @@
 {
   "name": "vue-slide-nav",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a vue slide nav component",
   "main": "./src/index.js",
   "scripts": {
