@@ -5,7 +5,8 @@ var baseWebapckConfig = require('./webpack.base.conf');
 var config = require('./config');
 
 var aPlugin = [
-    new ExtractTextPlugin('vue-slide-nav.css',{
+    new ExtractTextPlugin({
+        filename:'vue-slide-nav.css',
         allChunks: true
     }),
     new webpack.DefinePlugin({
@@ -21,34 +22,59 @@ var aPlugin = [
 
 module.exports = merge(baseWebapckConfig, {
     output: {
-        path: config.sDest,
+        path: config.sDist,
         library: 'VueSlideNav',
         libraryTarget: 'umd',
         filename: 'vue-slide-nav.js'
     },
     module: {
-        loaders: [
-            {test: /\.css$/, loader: ExtractTextPlugin.extract('style','css!postcss')},
-            {test: /\.scss$/, loader: ExtractTextPlugin.extract('css!postcss!sass')},
-            {
-                test: /\.(svg)(\?.*)?$/,
-                loaders: [
-                    'url?limit=2048&name=/static/images/[name].[ext]'
-                ]
+        rules: [
+            {   
+                test: /\.vue$/, loader: 'vue-loader',
+                options:{
+                    loaders: {
+                        css: ExtractTextPlugin.extract({
+                            use:[
+                                {loader:'css-loader',options:{minimize:true}},
+                                {loader:'postcss-loader'}
+                            ],
+                            fallback:[
+                                {loader:'style-loader'}
+                            ]
+                        }),
+                        sass: ExtractTextPlugin.extract({
+                            use:[
+                                {loader:'css-loader',options:{minimize:true}},
+                                {loader:'postcss-loader'},
+                                {loader:'sass-loader'}
+                            ]
+                        })
+                    }
+                }
             },
             {
-                test: /\.(png|jpe?g|gif)(\?.*)?$/,
-                loaders: [
-                    'url?limit=2048&name=/static/images/[name].[ext]'
-                ]
+                test: /\.css$/, 
+                use: ExtractTextPlugin.extract({
+                    use:[
+                        {loader:'css-loader',options:{minimize:true}},
+                        {loader:'postcss-loader'}
+                    ],
+                    fallback:[
+                        {loader:'style-loader'}
+                    ]
+                })
+            },
+            {
+                test: /\.scss$/, 
+                use: ExtractTextPlugin.extract({
+                    use:[
+                        {loader:'css-loader',options:{minimize:true}},
+                        {loader:'postcss-loader'},
+                        {loader:'sass-loader'}
+                    ]
+                })
             }
         ]
-    },
-    vue: {
-        loaders: {
-            css: ExtractTextPlugin.extract('style','css!postcss'),
-            sass: ExtractTextPlugin.extract('css!postcss!sass')
-        }
     },
     plugins: aPlugin,
     // devtool: 'cheap-module-source-map'

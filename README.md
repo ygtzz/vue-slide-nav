@@ -2,7 +2,17 @@
 
 ### QuickStart
 ```javascript
-import {slideNav} from 'VueSlideNav';
+require('vue-slide-nav/dist/vue-slide-nav.css');
+
+// in ES6 modules
+import { slideNav } from 'vue-slide-nav';
+
+// in CommonJS
+const { slideNav } = require('vue-slide-nav');
+
+// in Global variable
+const { slideNav } = VueSlideNav;
+
 Vue.component('c-slide-nav',slideNav);
 ```
 ```html
