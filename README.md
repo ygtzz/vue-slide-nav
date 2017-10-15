@@ -1,5 +1,13 @@
 ## vue-slide-nav
 
+### Install
+
+```bash
+npm install vue-slide-nav -S
+
+yarn add vue-slide-nav
+```
+
 ### QuickStart
 ```javascript
 require('vue-slide-nav/dist/vue-slide-nav.css');
